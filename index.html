@@ -1,0 +1,645 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1a3a5c;--navy-dark:#0d2237;--navy-mid:#1e4a73;--navy-light:#2a6090;
+  --gold:#c9a84c;--gold-light:#e8c96a;--sand:#f7f3eb;--sand-dark:#ede7d9;
+  --ocean:#3a8fb5;--white:#fff;--text:#1a2a3a;--muted:#637080;
+  --border:rgba(26,58,92,0.13);--success:#2a7a4f;--danger:#a83428;
+}
+body{font-family:'Georgia',serif;color:var(--text);background:transparent}
+
+/* ─── NAV ─── */
+.nav{background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:58px;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:200}
+.nav-brand{display:flex;align-items:center;gap:10px;cursor:pointer}
+.nav-crest{width:38px;height:38px;background:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--gold);font-size:17px}
+.nav-name{color:var(--white);font-size:14px;font-weight:700;line-height:1.2}
+.nav-tagline{color:var(--gold);font-size:9px;font-family:sans-serif;text-transform:uppercase;letter-spacing:1px}
+.nav-links{display:flex;gap:2px}
+.nav-link{background:none;border:none;color:rgba(255,255,255,0.75);padding:6px 11px;border-radius:5px;cursor:pointer;font-size:12px;font-family:sans-serif;transition:all .18s;white-space:nowrap}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,0.1)}
+.nav-link.active{color:#fff;border-bottom:2px solid var(--gold);border-radius:5px 5px 0 0}
+.nav-phone{color:var(--gold);font-size:12px;font-family:sans-serif;font-weight:700;white-space:nowrap}
+
+/* ─── PAGE SYSTEM ─── */
+.page{display:none}
+.page.active{display:block}
+
+/* ─── HERO ─── */
+.hero{background:var(--navy-dark);padding:52px 28px 44px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;bottom:0;left:0;right:0;height:36px;background:var(--sand);clip-path:ellipse(55% 100% at 50% 100%)}
+.hero-eyebrow{color:var(--gold);font-size:10px;font-family:sans-serif;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:10px}
+.hero h1{color:var(--white);font-size:30px;letter-spacing:.5px;margin-bottom:8px}
+.hero-sub{color:rgba(255,255,255,0.75);font-size:13px;font-family:sans-serif;line-height:1.7;max-width:520px;margin:0 auto 24px}
+.hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:var(--navy-dark);border:none;padding:11px 26px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:sans-serif;letter-spacing:.4px;transition:all .18s}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.45);padding:11px 26px;border-radius:8px;font-size:13px;cursor:pointer;font-family:sans-serif;transition:all .18s}
+.btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+
+/* ─── SECTION ─── */
+.section{padding:40px 24px;background:var(--sand)}
+.section.white{background:var(--white)}
+.section.navy{background:var(--navy)}
+.section-inner{max-width:680px;margin:0 auto}
+.sec-title{font-size:22px;color:var(--navy);text-align:center;margin-bottom:5px}
+.sec-title.light{color:var(--white)}
+.sec-sub{font-size:12px;color:var(--muted);text-align:center;font-family:sans-serif;margin-bottom:24px;letter-spacing:.5px;text-transform:uppercase}
+.sec-sub.light{color:var(--gold)}
+.divider{width:40px;height:2px;background:var(--gold);margin:10px auto 22px}
+
+/* ─── CARDS ─── */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:28px}
+.card{background:var(--white);border-radius:14px;border:.5px solid var(--border);overflow:hidden}
+.card-head{background:var(--navy);padding:22px 14px;text-align:center}
+.card-icon{font-size:38px;display:block;margin-bottom:6px}
+.card-label{color:var(--gold);font-size:9px;font-family:sans-serif;text-transform:uppercase;letter-spacing:1.5px}
+.card-body{padding:16px}
+.card-title{font-size:15px;color:var(--navy);margin-bottom:5px}
+.card-desc{font-size:12px;color:var(--muted);font-family:sans-serif;line-height:1.6;margin-bottom:10px}
+.card-rate{font-size:18px;color:var(--navy);font-weight:700;font-family:sans-serif;margin-bottom:3px}
+.card-rate-note{font-size:11px;color:var(--muted);font-family:sans-serif}
+.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-family:sans-serif;font-weight:600;margin-top:6px}
+.tag-blue{background:#e6f1fb;color:#0c447c}
+.tag-green{background:#eaf3de;color:#27500a}
+.tag-gold{background:#faeeda;color:#633806}
+
+/* ─── STEPS ─── */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
+.step{background:var(--white);border-radius:12px;border:.5px solid var(--border);padding:16px;text-align:center}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--navy);color:var(--gold);font-size:14px;font-weight:700;font-family:sans-serif;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.step-title{font-size:13px;color:var(--navy);margin-bottom:5px}
+.step-desc{font-size:11px;color:var(--muted);font-family:sans-serif;line-height:1.55}
+
+/* ─── CANCELLATION ─── */
+.policy-box{background:var(--sand-dark);border-radius:12px;border:.5px solid var(--border);padding:18px 20px}
+.policy-title{font-size:13px;color:var(--navy);margin-bottom:10px;font-weight:700}
+.policy-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;font-size:12px;font-family:sans-serif;color:var(--text)}
+.policy-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);margin-top:4px;flex-shrink:0}
+
+/* ─── EQUIPMENT LIST ─── */
+.equip-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;margin-bottom:18px}
+.equip-item{font-size:12px;font-family:sans-serif;color:var(--text);display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:.5px solid var(--border)}
+.equip-item i{font-size:14px;color:var(--gold)}
+
+/* ─── CLUB PLANS ─── */
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:24px}
+.plan{background:var(--white);border-radius:14px;border:.5px solid var(--border);overflow:hidden}
+.plan.featured{border:2px solid var(--gold)}
+.plan-head{background:var(--navy);padding:18px 16px;text-align:center}
+.plan.featured .plan-head{background:linear-gradient(135deg,var(--navy-dark),var(--navy-mid))}
+.plan-badge{background:var(--gold);color:var(--navy-dark);font-size:9px;font-family:sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px}
+.plan-name{color:var(--white);font-size:16px;margin-bottom:4px}
+.plan-price{color:var(--gold);font-size:22px;font-weight:700;font-family:sans-serif}
+.plan-period{color:rgba(255,255,255,.6);font-size:10px;font-family:sans-serif}
+.plan-body{padding:16px}
+.plan-feature{font-size:12px;font-family:sans-serif;color:var(--text);display:flex;align-items:flex-start;gap:7px;margin-bottom:8px;line-height:1.45}
+.plan-feature i{font-size:14px;color:var(--success);flex-shrink:0;margin-top:1px}
+.plan-cta{width:100%;background:var(--navy);color:var(--white);border:none;padding:10px;border-radius:8px;font-size:12px;font-family:sans-serif;font-weight:600;cursor:pointer;margin-top:4px;transition:background .18s}
+.plan-cta:hover{background:var(--navy-dark)}
+.plan.featured .plan-cta{background:var(--gold);color:var(--navy-dark)}
+.plan.featured .plan-cta:hover{background:var(--gold-light)}
+
+/* ─── CONTACT ─── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+.contact-card{background:var(--white);border-radius:14px;border:.5px solid var(--border);padding:20px}
+.contact-icon-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.contact-icon{width:40px;height:40px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:18px;flex-shrink:0}
+.contact-label{font-size:13px;color:var(--navy)}
+.contact-val{font-size:12px;color:var(--muted);font-family:sans-serif}
+.form-group{margin-bottom:13px}
+.form-label{display:block;font-size:10px;font-family:sans-serif;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.form-input,.form-textarea{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:sans-serif;color:var(--text);background:var(--white);transition:border-color .18s}
+.form-input:focus,.form-textarea:focus{outline:none;border-color:var(--navy)}
+.form-textarea{resize:vertical;min-height:90px}
+.map-box{background:var(--sand-dark);border-radius:12px;padding:16px;text-align:center;border:.5px solid var(--border)}
+.map-icon{font-size:36px;margin-bottom:8px}
+.map-addr{font-size:13px;color:var(--navy);margin-bottom:4px}
+.map-note{font-size:11px;color:var(--muted);font-family:sans-serif;line-height:1.5}
+
+/* ─── CATERING ─── */
+.coming-soon{text-align:center;padding:60px 24px}
+.coming-soon-icon{font-size:48px;margin-bottom:16px}
+.coming-soon h2{font-size:24px;color:var(--navy);margin-bottom:8px}
+.coming-soon p{font-size:13px;color:var(--muted);font-family:sans-serif;line-height:1.7;max-width:420px;margin:0 auto 20px}
+
+/* ─── REVIEWS STRIP ─── */
+.reviews-strip{background:var(--navy-dark);padding:28px 24px;text-align:center}
+.reviews-title{color:var(--white);font-size:16px;margin-bottom:16px}
+.review-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.review-btn{background:var(--white);color:var(--navy);border:none;padding:10px 20px;border-radius:8px;font-size:12px;font-family:sans-serif;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .18s}
+.review-btn:hover{background:var(--gold);color:var(--navy-dark)}
+.review-stars{color:#f4b942;font-size:14px;letter-spacing:1px}
+
+/* ─── FOOTER ─── */
+.footer{background:var(--navy-dark);border-top:2px solid var(--gold);padding:24px;text-align:center}
+.footer-logo{font-size:18px;color:var(--white);margin-bottom:4px}
+.footer-sub{font-size:10px;color:var(--gold);font-family:sans-serif;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px}
+.footer-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.footer-link{color:rgba(255,255,255,.6);font-size:11px;font-family:sans-serif;cursor:pointer;border:none;background:none;transition:color .18s}
+.footer-link:hover{color:var(--gold)}
+.footer-copy{font-size:10px;color:rgba(255,255,255,.35);font-family:sans-serif}
+
+/* ─── INFO BAND ─── */
+.info-band{background:var(--gold);padding:10px 24px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.info-item{font-size:12px;color:var(--navy-dark);font-family:sans-serif;font-weight:600;display:flex;align-items:center;gap:5px}
+
+/* ─── HIGHLIGHT BOX ─── */
+.highlight{background:var(--navy);border-radius:14px;padding:22px;margin-bottom:20px;text-align:center}
+.highlight h3{color:var(--white);font-size:17px;margin-bottom:8px}
+.highlight p{color:rgba(255,255,255,.8);font-size:12px;font-family:sans-serif;line-height:1.65;margin-bottom:14px}
+.highlight-rate{color:var(--gold);font-size:24px;font-weight:700;font-family:sans-serif;margin-bottom:4px}
+.highlight-rate-note{color:rgba(255,255,255,.6);font-size:11px;font-family:sans-serif}
+</style>
+
+<div>
+<!-- ═══ NAV ═══ -->
+<div class="nav">
+  <div class="nav-brand" onclick="showPage('home')">
+    <div class="nav-crest">⚓</div>
+    <div>
+      <div class="nav-name">Harbor Boat Rentals</div>
+      <div class="nav-tagline">Dana Point, CA</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" id="tab-home" onclick="showPage('home')">Home</button>
+    <button class="nav-link" id="tab-rentals" onclick="showPage('rentals')">Rentals</button>
+    <button class="nav-link" id="tab-boatclub" onclick="showPage('boatclub')">Boat Club</button>
+    <button class="nav-link" id="tab-duffyclub" onclick="showPage('duffyclub')">Duffy Club</button>
+    <button class="nav-link" id="tab-contact" onclick="showPage('contact')">Contact</button>
+    <button class="nav-link" id="tab-catering" onclick="showPage('catering')">Catering</button>
+  </div>
+  <div class="nav-phone">📞 (949) 226-4619</div>
+</div>
+
+<!-- ═══ HOME ═══ -->
+<div class="page active" id="page-home">
+  <div class="info-band">
+    <div class="info-item"><i class="ti ti-map-pin" aria-hidden="true"></i>Dock B · 24707 Dana Dr, Dana Point CA</div>
+    <div class="info-item"><i class="ti ti-phone" aria-hidden="true"></i>(949) 226-4619 · Call or Text</div>
+    <div class="info-item"><i class="ti ti-calendar" aria-hidden="true"></i>By Appointment Only</div>
+  </div>
+  <div class="hero">
+    <div class="hero-eyebrow">Dana Point Harbor · Southern California</div>
+    <h1>Harbor Boat Rentals</h1>
+    <div class="hero-sub">Boat Rentals, Charters, Dolphin &amp; Whale Watching, Coastal &amp; Harbor Cruises. Experience the SoCal coast your way.</div>
+    <div class="hero-btns">
+      <button class="btn-gold" onclick="window.open('https://harbor-boat-rentals.letsbook.app/','_blank')">Book Now</button>
+      <button class="btn-ghost" onclick="showPage('rentals')">View Rentals</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-inner">
+      <div class="sec-title">Our Fleet</div>
+      <div class="divider"></div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-head"><span class="card-icon">⛵</span><div class="card-label">Electric · Luxury</div></div>
+          <div class="card-body">
+            <div class="card-title">Duffy Electric Boats</div>
+            <div class="card-desc">Luxurious, fully equipped electric cruisers. Perfect for a relaxing day on the harbor with friends and family. Up to 12 people.</div>
+            <div class="card-rate">$200<span style="font-size:13px;font-weight:400">/hr</span></div>
+            <span class="tag tag-blue">Up to 12 guests</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="card-icon">🚤</span><div class="card-label">Maritime 21' · Power</div></div>
+          <div class="card-body">
+            <div class="card-title">Maritime 21' Power Boats</div>
+            <div class="card-desc">Center console powerboats ideal for fishing, coastal cruising and whale watching. Yamaha 4-stroke powered, clean and well equipped.</div>
+            <div class="card-rate">From $475</div>
+            <div class="card-rate-note">½ day to full day options</div>
+            <span class="tag tag-green">Up to 6 guests</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec-title">Rentals</div>
+      <div class="divider"></div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-title">Check Availability</div><div class="step-desc">Click Book Now and plan ahead — we sell out on weekends, holidays, and great weather days.</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">Book Your Boat</div><div class="step-desc">Name, mobile number, and credit card. Quick and easy online booking.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">Confirmation</div><div class="step-desc">Receive a confirmation email with directions, location details and reservation info.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">Sign Agreement</div><div class="step-desc">Look for a DocuSign email to electronically sign your rental agreement before your trip.</div></div>
+      </div>
+      <div style="text-align:center;margin-bottom:32px">
+        <button class="btn-gold" onclick="window.open('https://harbor-boat-rentals.letsbook.app/','_blank')">Book Now</button>
+      </div>
+
+      <div class="sec-title">Join the Club</div>
+      <div class="divider"></div>
+      <div class="highlight">
+        <h3>⚓ HBR Boat Club</h3>
+        <p>Enjoy the perks of owning a boat without the hassle. Multiple membership options give you access to our fleet at a reasonable monthly payment. No slips, no maintenance — just endless fun on the water.</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <button class="btn-gold" onclick="showPage('boatclub')">Boat Club Info</button>
+          <button class="btn-ghost" onclick="showPage('duffyclub')">Duffy Club Info</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reviews-strip">
+    <div class="reviews-title">⭐ Loved by the SoCal boating community</div>
+    <div class="review-btns">
+      <button class="review-btn" onclick="window.open('http://www.yelp.com/biz/harbor-boat-rentals-dana-point','_blank')">🟥 Read Yelp Reviews</button>
+      <button class="review-btn" onclick="window.open('https://www.google.com/search?q=Harbor+Boat+Rentals+Dana+Point+Reviews','_blank')">🔵 Read Google Reviews</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-logo">Harbor Boat Rentals</div>
+    <div class="footer-sub">Boat Rentals · Charters · Dolphin &amp; Whale Watching · Coastal Cruises</div>
+    <div class="footer-links">
+      <button class="footer-link" onclick="showPage('home')">Home</button>
+      <button class="footer-link" onclick="showPage('rentals')">Rentals</button>
+      <button class="footer-link" onclick="showPage('boatclub')">Boat Club</button>
+      <button class="footer-link" onclick="showPage('duffyclub')">Duffy Club</button>
+      <button class="footer-link" onclick="showPage('contact')">Contact</button>
+    </div>
+    <div class="footer-copy">© 2026 Harbor Boat Rentals · Dock B, 24707 Dana Dr, Dana Point CA 92629 · (949) 226-4619</div>
+  </div>
+</div>
+
+<!-- ═══ RENTALS ═══ -->
+<div class="page" id="page-rentals">
+  <div class="hero" style="padding:44px 28px 38px">
+    <div class="hero-eyebrow">Dana Point Harbor</div>
+    <h1>Boat Rentals</h1>
+    <div class="hero-sub">Self-skippered or captained — we have the right vessel for your adventure on the water.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-inner">
+
+      <div class="highlight" style="margin-bottom:24px">
+        <h3>⛵ Luxurious Duffy Electric Boats — Now Available!</h3>
+        <p>Looking for a unique way to explore Dana Point Harbor? Our Luxury Duffy Electric boats are the finest, fully equipped, and perfect for a relaxing day on the water with friends and family. Accommodates up to 12 people and perfect for all occasions.</p>
+        <div class="highlight-rate">$200 / hr</div>
+        <div class="highlight-rate-note">USCG licensed captains available at additional rates</div>
+      </div>
+
+      <div class="sec-title">Maritime 21' Power Boats</div>
+      <div class="divider"></div>
+      <div style="background:var(--white);border-radius:14px;border:.5px solid var(--border);padding:20px;margin-bottom:20px">
+        <div style="font-size:13px;color:var(--muted);font-family:sans-serif;line-height:1.7;margin-bottom:16px">Our 21' Maritime center console boats accommodate up to 4–6 people comfortably. They offer a soft dry ride powered by quiet and efficient Yamaha 4-stroke outboard motors. Outfitted with the serious fisherman in mind, they are also great for coastal cruising and whale watching.</div>
+        <div class="card-grid" style="margin-bottom:16px">
+          <div style="background:var(--sand);border-radius:10px;padding:14px;text-align:center">
+            <div style="font-size:10px;font-family:sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">½ Day · up to 4 hrs</div>
+            <div style="font-size:22px;color:var(--navy);font-weight:700;font-family:sans-serif">$475</div>
+          </div>
+          <div style="background:var(--sand);border-radius:10px;padding:14px;text-align:center">
+            <div style="font-size:10px;font-family:sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">¾ Day · up to 6 hrs</div>
+            <div style="font-size:22px;color:var(--navy);font-weight:700;font-family:sans-serif">$575</div>
+          </div>
+          <div style="background:var(--sand);border-radius:10px;padding:14px;text-align:center">
+            <div style="font-size:10px;font-family:sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Full Day · up to 8 hrs</div>
+            <div style="font-size:22px;color:var(--navy);font-weight:700;font-family:sans-serif">$675</div>
+          </div>
+          <div style="background:var(--sand);border-radius:10px;padding:14px;text-align:center">
+            <div style="font-size:10px;font-family:sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Plus Day · up to 10 hrs</div>
+            <div style="font-size:22px;color:var(--navy);font-weight:700;font-family:sans-serif">$775</div>
+          </div>
+        </div>
+        <div style="font-size:11px;font-family:sans-serif;color:var(--muted);line-height:1.6;padding:12px;background:var(--sand-dark);border-radius:8px">
+          <strong style="color:var(--navy)">Fuel:</strong> Boats are fueled and ready to go. Renters must refuel at the Dana Point Fuel Dock before returning.<br>
+          <strong style="color:var(--navy)">Bait:</strong> Live bait at the Dana Point bait barge. Frozen bait at the Dana Point Fuel Dock.<br>
+          <strong style="color:var(--navy)">Cleaning:</strong> Rinse with fresh water and clean trash, fish blood, guts, scales &amp; slime upon return. Hose, bucket, soap, brush &amp; towels provided.
+        </div>
+      </div>
+
+      <div class="sec-title">Our Boats Are Equipped With</div>
+      <div class="divider"></div>
+      <div style="background:var(--white);border-radius:14px;border:.5px solid var(--border);padding:18px;margin-bottom:24px">
+        <div class="equip-grid">
+          <div class="equip-item"><i class="ti ti-shield-check" aria-hidden="true"></i>USCG Safety equipment</div>
+          <div class="equip-item"><i class="ti ti-anchor" aria-hidden="true"></i>Plow anchor w/ 150' line</div>
+          <div class="equip-item"><i class="ti ti-map" aria-hidden="true"></i>Garmin GPS / Chartplotter</div>
+          <div class="equip-item"><i class="ti ti-fish" aria-hidden="true"></i>Garmin Fish finder</div>
+          <div class="equip-item"><i class="ti ti-radio" aria-hidden="true"></i>VHF radio</div>
+          <div class="equip-item"><i class="ti ti-droplet" aria-hidden="true"></i>Custom bait system</div>
+          <div class="equip-item"><i class="ti ti-tool" aria-hidden="true"></i>Gaff</div>
+          <div class="equip-item"><i class="ti ti-net" aria-hidden="true"></i>Bait net</div>
+          <div class="equip-item"><i class="ti ti-bucket" aria-hidden="true"></i>Scrub brush &amp; washdown bucket</div>
+          <div class="equip-item"><i class="ti ti-arrow-right" aria-hidden="true"></i>Rod holders</div>
+        </div>
+      </div>
+
+      <div class="sec-title">How to Reserve</div>
+      <div class="divider"></div>
+      <div class="steps" style="margin-bottom:16px">
+        <div class="step"><div class="step-num">1</div><div class="step-title">Check Availability</div><div class="step-desc">Click Book Now. Plan ahead — we sell out during nice weather, weekends &amp; holidays.</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">Book Online</div><div class="step-desc">Name, mobile number and credit card information required.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">Get Confirmed</div><div class="step-desc">Email confirmation with location, directions and reservation details.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">Sign Agreement</div><div class="step-desc">DocuSign email with rental agreement sent to you electronically.</div></div>
+      </div>
+      <div style="text-align:center;margin-bottom:24px">
+        <button class="btn-gold" onclick="window.open('https://harbor-boat-rentals.letsbook.app/','_blank')">Book Now</button>
+      </div>
+
+      <div class="policy-box">
+        <div class="policy-title">Cancellation Policy</div>
+        <div class="policy-row"><div class="policy-dot"></div><span>No penalty if cancelled more than 7 days before rental.</span></div>
+        <div class="policy-row"><div class="policy-dot"></div><span>50% of rental rate if cancelled within 7 days.</span></div>
+        <div class="policy-row"><div class="policy-dot"></div><span>100% of rental rate if cancelled within 3 days.</span></div>
+        <div class="policy-row"><div class="policy-dot"></div><span>Rescheduling must be done more than 3 days in advance.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="footer-logo">Harbor Boat Rentals</div>
+    <div class="footer-sub">Boat Rentals · Charters · Dolphin &amp; Whale Watching · Coastal Cruises</div>
+    <div class="footer-links">
+      <button class="footer-link" onclick="showPage('home')">Home</button>
+      <button class="footer-link" onclick="showPage('rentals')">Rentals</button>
+      <button class="footer-link" onclick="showPage('boatclub')">Boat Club</button>
+      <button class="footer-link" onclick="showPage('duffyclub')">Duffy Club</button>
+      <button class="footer-link" onclick="showPage('contact')">Contact</button>
+    </div>
+    <div class="footer-copy">© 2026 Harbor Boat Rentals · Dock B, 24707 Dana Dr, Dana Point CA 92629</div>
+  </div>
+</div>
+
+<!-- ═══ BOAT CLUB ═══ -->
+<div class="page" id="page-boatclub">
+  <div class="hero">
+    <div class="hero-eyebrow">HBR Membership</div>
+    <h1>Boat Club</h1>
+    <div class="hero-sub">Join the fun and easy side of boating. Multiple club options to suit your lifestyle — enjoy the perks of owning a boat without the hassle.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-inner">
+      <div class="sec-title">Multiple Club Options</div>
+      <div class="sec-sub">To suit your boating needs</div>
+      <div class="divider"></div>
+
+      <div style="background:var(--white);border-radius:14px;border:.5px solid var(--border);padding:20px;margin-bottom:20px;font-size:13px;color:var(--muted);font-family:sans-serif;line-height:1.75">
+        HBR is now offering multiple Boat Club options. You can enjoy the perks of owning a boat without the hassle and burden of all the costs that come with it. With our boat ownership programs you can have access to our boats based on your membership at a reasonable monthly payment. Say goodbye to the worries of boat slips and maintenance and say hello to endless fun on the water!
+      </div>
+
+      <div class="plans">
+        <div class="plan">
+          <div class="plan-head">
+            <div class="plan-name">Starter Club</div>
+            <div class="plan-price">Call for pricing</div>
+            <div class="plan-period">monthly membership</div>
+          </div>
+          <div class="plan-body">
+            <div class="plan-feature"><i class="ti ti-check" aria-hidden="true"></i>Access to our power boat fleet</div>
+            <div class="plan-feature"><i class="ti ti-check" aria-hidden="true"></i>No slip or maintenance fees</div>
+            <div class="plan-feature"><i class="ti ti-check" aria-hidden="true"></i>Priority booking for members</div>
+            <div class="plan-feature"><i class="ti ti-check" aria-hidden="true"></i>USCG licensed captains available</div>
+            <button class="plan-cta" onclick="showPage('contact')">Contact Us for Pricing</button>
+          </div>
+        </div>
+        <div class="plan featured">
+          <div class="plan-head">
+            <div class="plan-badge">Most Popular</div>
+            <div class="plan-name">Full Club Access</div>
+            <div class="plan-price">Call for pricing</div>
+            <div class="plan-period">monthly membership</div>
+          </div>
+          <div class="plan-body">
+            <div class="plan-feature"><i class="ti ti-check" aria-hidden="true"></i>Full fleet access — power &amp; Duffy</div>
+            <div class="plan-feature"><i class="ti ti-check" aria-hidden="true"></i>No boat slip or maintenance costs</div>
+            <div class="plan-feature"><i class="ti ti-check" aria-hidden="true"></i>Priority booking access</div>
+            <div class="plan-feature"><i class="ti ti-check" aria-hidden="true"></i>Fishing, cruising &amp; whale watching</div>
+            <div class="plan-feature"><i class="ti ti-check" aria-hidden="true"></i>USCG captains available</div>
+            <button class="plan-cta" onclick="showPage('contact')">Contact Us for Pricing</button>
+          </div>
+        </div>
+        <div class="plan">
+          <div class="plan-head">
+            <div class="plan-name">Duffy Only Club</div>
+            <div class="plan-price">Low monthly rate</div>
+            <div class="plan-period">monthly membership</div>
+          </div>
+          <div class="plan-body">
+            <div class="plan-feature"><i class="ti ti-check" aria-hidden="true"></i>Access to Luxurious Duffy boats</div>
+            <div class="plan-feature"><i class="ti ti-check" aria-hidden="true"></i>More usage for less monthly spend</div>
+            <div class="plan-feature"><i class="ti ti-check" aria-hidden="true"></i>Up to 12 guests per trip</div>
+            <div class="plan-feature"><i class="ti ti-check" aria-hidden="true"></i>Perfect for harbor entertaining</div>
+            <button class="plan-cta" onclick="showPage('duffyclub')">See Duffy Club Details</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--sand-dark);border-radius:14px;padding:20px;margin-bottom:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;text-align:center">
+        <div><div style="font-size:22px;margin-bottom:4px">🚫</div><div style="font-size:12px;font-family:sans-serif;color:var(--navy);font-weight:700">No slip fees</div></div>
+        <div><div style="font-size:22px;margin-bottom:4px">🔧</div><div style="font-size:12px;font-family:sans-serif;color:var(--navy);font-weight:700">No maintenance</div></div>
+        <div><div style="font-size:22px;margin-bottom:4px">📅</div><div style="font-size:12px;font-family:sans-serif;color:var(--navy);font-weight:700">Priority booking</div></div>
+        <div><div style="font-size:22px;margin-bottom:4px">⚓</div><div style="font-size:12px;font-family:sans-serif;color:var(--navy);font-weight:700">All-inclusive access</div></div>
+      </div>
+
+      <div style="text-align:center">
+        <button class="btn-gold" onclick="showPage('contact')">Inquire About Membership</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="footer-logo">Harbor Boat Rentals</div>
+    <div class="footer-sub">Boat Rentals · Charters · Dolphin &amp; Whale Watching · Coastal Cruises</div>
+    <div class="footer-links">
+      <button class="footer-link" onclick="showPage('home')">Home</button>
+      <button class="footer-link" onclick="showPage('rentals')">Rentals</button>
+      <button class="footer-link" onclick="showPage('boatclub')">Boat Club</button>
+      <button class="footer-link" onclick="showPage('duffyclub')">Duffy Club</button>
+      <button class="footer-link" onclick="showPage('contact')">Contact</button>
+    </div>
+    <div class="footer-copy">© 2026 Harbor Boat Rentals · Dock B, 24707 Dana Dr, Dana Point CA 92629</div>
+  </div>
+</div>
+
+<!-- ═══ DUFFY CLUB ═══ -->
+<div class="page" id="page-duffyclub">
+  <div class="hero">
+    <div class="hero-eyebrow">New at HBR</div>
+    <h1>Duffy Boat Club</h1>
+    <div class="hero-sub">Why own when you can play for much less? The Duffy Boat Club gives you more usage of our beautiful Luxurious Duffy Boats for a very low monthly payment.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-inner">
+      <div class="highlight">
+        <h3>⛵ Duffy Only Club — New at HBR!</h3>
+        <p>We now offer a Duffy-only club which will give you more usage of our beautiful Luxurious Duffy Boats for a very low monthly payment. Enjoy the harbor your way, on your schedule.</p>
+        <div class="highlight-rate">Low Monthly Payment</div>
+        <div class="highlight-rate-note">Contact us for current membership rates</div>
+      </div>
+
+      <div class="sec-title">Why the Duffy Club?</div>
+      <div class="divider"></div>
+      <div class="card-grid" style="margin-bottom:24px">
+        <div class="card">
+          <div class="card-head"><span class="card-icon">⛵</span><div class="card-label">Luxury access</div></div>
+          <div class="card-body">
+            <div class="card-title">Our Luxurious Duffy Boats</div>
+            <div class="card-desc">The finest fully equipped Duffy electric boats in Dana Point. Accommodate up to 12 people, perfect for all occasions.</div>
+            <span class="tag tag-blue">Up to 12 guests</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="card-icon">💰</span><div class="card-label">Value</div></div>
+          <div class="card-body">
+            <div class="card-title">Own the experience, not the boat</div>
+            <div class="card-desc">Skip the boat payments, slip fees, maintenance, and storage. Just show up and enjoy the water.</div>
+            <span class="tag tag-green">No hidden costs</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="card-icon">📅</span><div class="card-label">Flexibility</div></div>
+          <div class="card-body">
+            <div class="card-title">More time on the water</div>
+            <div class="card-desc">Enjoy more usage than a standard rental package — the club model gives you better access at a lower effective rate.</div>
+            <span class="tag tag-gold">Priority access</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec-title">What's Included</div>
+      <div class="divider"></div>
+      <div style="background:var(--white);border-radius:14px;border:.5px solid var(--border);padding:20px;margin-bottom:24px">
+        <div class="plan-feature" style="margin-bottom:12px"><i class="ti ti-check" style="font-size:16px;color:var(--success)" aria-hidden="true"></i><span style="font-size:13px;font-family:sans-serif;color:var(--text)">Access to our beautiful Luxury Duffy Electric Boats</span></div>
+        <div class="plan-feature" style="margin-bottom:12px"><i class="ti ti-check" style="font-size:16px;color:var(--success)" aria-hidden="true"></i><span style="font-size:13px;font-family:sans-serif;color:var(--text)">Boats are fully equipped for all occasions</span></div>
+        <div class="plan-feature" style="margin-bottom:12px"><i class="ti ti-check" style="font-size:16px;color:var(--success)" aria-hidden="true"></i><span style="font-size:13px;font-family:sans-serif;color:var(--text)">Up to 12 guests per outing</span></div>
+        <div class="plan-feature" style="margin-bottom:12px"><i class="ti ti-check" style="font-size:16px;color:var(--success)" aria-hidden="true"></i><span style="font-size:13px;font-family:sans-serif;color:var(--text)">USCG licensed captains available (additional rates apply)</span></div>
+        <div class="plan-feature" style="margin-bottom:12px"><i class="ti ti-check" style="font-size:16px;color:var(--success)" aria-hidden="true"></i><span style="font-size:13px;font-family:sans-serif;color:var(--text)">No slip fees, no maintenance, no worries</span></div>
+        <div class="plan-feature"><i class="ti ti-check" style="font-size:16px;color:var(--success)" aria-hidden="true"></i><span style="font-size:13px;font-family:sans-serif;color:var(--text)">Priority booking for members</span></div>
+      </div>
+
+      <div style="text-align:center;margin-bottom:16px">
+        <button class="btn-gold" onclick="showPage('contact')">Get Membership Info</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="footer-logo">Harbor Boat Rentals</div>
+    <div class="footer-sub">Boat Rentals · Charters · Dolphin &amp; Whale Watching · Coastal Cruises</div>
+    <div class="footer-links">
+      <button class="footer-link" onclick="showPage('home')">Home</button>
+      <button class="footer-link" onclick="showPage('rentals')">Rentals</button>
+      <button class="footer-link" onclick="showPage('boatclub')">Boat Club</button>
+      <button class="footer-link" onclick="showPage('duffyclub')">Duffy Club</button>
+      <button class="footer-link" onclick="showPage('contact')">Contact</button>
+    </div>
+    <div class="footer-copy">© 2026 Harbor Boat Rentals · Dock B, 24707 Dana Dr, Dana Point CA 92629</div>
+  </div>
+</div>
+
+<!-- ═══ CONTACT ═══ -->
+<div class="page" id="page-contact">
+  <div class="hero" style="padding:44px 28px 38px">
+    <div class="hero-eyebrow">Get in Touch</div>
+    <h1>Contact Us</h1>
+    <div class="hero-sub">Ready to book or have questions? Call, text, or send us a message below. We're by appointment only so reach out early!</div>
+  </div>
+
+  <div class="section">
+    <div class="section-inner">
+      <div class="contact-grid" style="margin-bottom:20px">
+        <div class="contact-card">
+          <div class="contact-icon-row"><div class="contact-icon"><i class="ti ti-phone" aria-hidden="true"></i></div><div><div class="contact-label">Call or Text</div><div class="contact-val">(949) 226-4619</div></div></div>
+          <div style="font-size:12px;font-family:sans-serif;color:var(--muted);line-height:1.6">Best way to reach us! Call or text to check availability and book your rental.</div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon-row"><div class="contact-icon"><i class="ti ti-map-pin" aria-hidden="true"></i></div><div><div class="contact-label">Our Location</div><div class="contact-val">By Reservation Only</div></div></div>
+          <div style="font-size:12px;font-family:sans-serif;color:var(--muted);line-height:1.6">Dock B<br>24707 Dana Dr.<br>Dana Point, CA 92629</div>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border-radius:14px;border:.5px solid var(--border);padding:20px;margin-bottom:20px">
+        <div class="sec-title" style="text-align:left;margin-bottom:16px;font-size:16px">Send Us a Message</div>
+        <div class="form-group">
+          <label class="form-label">Your name</label>
+          <input class="form-input" type="text" placeholder="First and last name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email address</label>
+          <input class="form-input" type="email" placeholder="you@email.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone number</label>
+          <input class="form-input" type="tel" placeholder="(949) 555-0000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Tell us about your rental needs, preferred dates, group size, etc."></textarea>
+        </div>
+        <button class="btn-gold" style="width:100%" onclick="alert('Message sent! We\'ll get back to you shortly.')">Send Message</button>
+      </div>
+
+      <div class="map-box">
+        <div class="map-icon">📍</div>
+        <div class="map-addr" style="font-size:15px;margin-bottom:6px">Dock B · 24707 Dana Dr, Dana Point CA 92629</div>
+        <div class="map-note">By reservation only. Confirmation includes full location details and directions.</div>
+        <button class="btn-gold" style="margin-top:14px" onclick="window.open('https://maps.google.com/?q=24707+Dana+Dr+Dana+Point+CA+92629','_blank')">Get Directions</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="footer-logo">Harbor Boat Rentals</div>
+    <div class="footer-sub">Boat Rentals · Charters · Dolphin &amp; Whale Watching · Coastal Cruises</div>
+    <div class="footer-links">
+      <button class="footer-link" onclick="showPage('home')">Home</button>
+      <button class="footer-link" onclick="showPage('rentals')">Rentals</button>
+      <button class="footer-link" onclick="showPage('boatclub')">Boat Club</button>
+      <button class="footer-link" onclick="showPage('duffyclub')">Duffy Club</button>
+      <button class="footer-link" onclick="showPage('contact')">Contact</button>
+    </div>
+    <div class="footer-copy">© 2026 Harbor Boat Rentals · Dock B, 24707 Dana Dr, Dana Point CA 92629</div>
+  </div>
+</div>
+
+<!-- ═══ CATERING ═══ -->
+<div class="page" id="page-catering">
+  <div class="hero" style="padding:44px 28px 38px">
+    <div class="hero-eyebrow">Coming Soon</div>
+    <h1>Catering</h1>
+    <div class="hero-sub">We're working on something delicious. On-the-water catering is coming to Harbor Boat Rentals.</div>
+  </div>
+  <div class="section">
+    <div class="section-inner">
+      <div class="coming-soon">
+        <div class="coming-soon-icon">🍽️</div>
+        <h2>Catering — Coming Soon!</h2>
+        <p>We're putting together a catering experience worthy of the SoCal harbor. Full details coming soon. Contact us to be notified when it's available or to ask about private event packages.</p>
+        <button class="btn-gold" onclick="showPage('contact')">Contact Us for Info</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="footer-logo">Harbor Boat Rentals</div>
+    <div class="footer-sub">Boat Rentals · Charters · Dolphin &amp; Whale Watching · Coastal Cruises</div>
+    <div class="footer-links">
+      <button class="footer-link" onclick="showPage('home')">Home</button>
+      <button class="footer-link" onclick="showPage('rentals')">Rentals</button>
+      <button class="footer-link" onclick="showPage('boatclub')">Boat Club</button>
+      <button class="footer-link" onclick="showPage('duffyclub')">Duffy Club</button>
+      <button class="footer-link" onclick="showPage('contact')">Contact</button>
+    </div>
+    <div class="footer-copy">© 2026 Harbor Boat Rentals · Dock B, 24707 Dana Dr, Dana Point CA 92629</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const pages = ['home','rentals','boatclub','duffyclub','contact','catering'];
+const tabMap = {home:'tab-home',rentals:'tab-rentals',boatclub:'tab-boatclub',duffyclub:'tab-duffyclub',contact:'tab-contact',catering:'tab-catering'};
+function showPage(p){
+  pages.forEach(id=>{
+    const el=document.getElementById('page-'+id);
+    if(el) el.classList.remove('active');
+    const tab=document.getElementById(tabMap[id]);
+    if(tab) tab.classList.remove('active');
+  });
+  const pg=document.getElementById('page-'+p);
+  if(pg) pg.classList.add('active');
+  const tb=document.getElementById(tabMap[p]);
+  if(tb) tb.classList.add('active');
+  window.scrollTo&&window.scrollTo(0,0);
+}
+</script>
